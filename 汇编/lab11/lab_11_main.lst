@@ -1,0 +1,90 @@
+Microsoft (R) Macro Assembler Version 6.14.8444		    05/28/15 21:07:04
+D:\masm32\lab_11_main.asm				     Page 1 - 1
+
+
+				;编写源代码lab_11_main.asm，调用lab_11.lib中的过程udtoa,dtoa,atod,atoud
+				;过程dtoa实现有符号十进制数转换为字符串的功能，负数字符串以“-“引导。入口参数为eax=有符号十进制数和ebx=字符串首地址，出口参数为ebx=字符串首地址
+				;程序atod实现字符串转换为有符号十进制数的功能，用堆栈实现参数的传递
+
+				.386
+				.model flat,stdcall
+				.stack 4096
+				includelib  lab_11.lib
+				extern  dtoa:near32,atod:near32
+ 00000000			.data
+ 00000000 FFFFCFC7		    a       dword   -12345
+ 00000004 0001E240		    b       dword   123456
+ 00000008  0000000A [		    num     byte    10 dup (?),0
+	    00
+	   ] 00
+ 00000013 2D 31 32 33 34	    string1 byte    '-12345'
+	   35
+ 00000019 31 32 33 34 35	    string2 byte    '123456'
+	   36
+ 0000001F 00000000		    result  dword   ?
+
+ 00000000			.code
+ 00000000			start:
+ 00000000  A1 00000000 R	    mov     eax,a
+ 00000005  BB 00000008 R	    mov     ebx,offset  num
+ 0000000A  E8 00000000 E	    call    dtoa
+ 0000000F  A1 00000004 R	    mov     eax,b
+ 00000014  BB 00000008 R	    mov     ebx,offset  num
+ 00000019  E8 00000000 E	    call    dtoa
+
+ 0000001E  68 00000013 R	    push    offset  string1
+ 00000023  E8 00000000 E	    call    atod
+ 00000028  A3 0000001F R	    mov     result,eax
+ 0000002D  68 00000019 R	    push    offset  string2
+ 00000032  E8 00000000 E	    call    atod
+ 00000037  A3 0000001F R	    mov     result,eax    
+ 0000003C  C3			ret
+ 0000003D			end     start
+Microsoft (R) Macro Assembler Version 6.14.8444		    05/28/15 21:07:04
+D:\masm32\lab_11_main.asm				     Symbols 2 - 1
+
+
+
+
+Segments and Groups:
+
+                N a m e                 Size     Length   Align   Combine Class
+
+FLAT . . . . . . . . . . . . . .	GROUP
+STACK  . . . . . . . . . . . . .	32 Bit	 00001000 DWord	  Stack	  'STACK'	 
+_DATA  . . . . . . . . . . . . .	32 Bit	 00000023 DWord	  Public  'DATA'	
+_TEXT  . . . . . . . . . . . . .	32 Bit	 0000003D DWord	  Public  'CODE'	
+
+
+Procedures,  parameters and locals:
+
+                N a m e                 Type     Value    Attr
+
+$$$00001 . . . . . . . . . . . .	P Near	 00000000 _TEXT	Length= 0000003D Private STDCALL
+
+
+Symbols:
+
+                N a m e                 Type     Value    Attr
+
+@CodeSize  . . . . . . . . . . .	Number	 00000000h   
+@DataSize  . . . . . . . . . . .	Number	 00000000h   
+@Interface . . . . . . . . . . .	Number	 00000003h   
+@Model . . . . . . . . . . . . .	Number	 00000007h   
+@code  . . . . . . . . . . . . .	Text   	 _TEXT
+@data  . . . . . . . . . . . . .	Text   	 FLAT
+@fardata?  . . . . . . . . . . .	Text   	 FLAT
+@fardata . . . . . . . . . . . .	Text   	 FLAT
+@stack . . . . . . . . . . . . .	Text   	 FLAT
+atod . . . . . . . . . . . . . .	L Near	 00000000 FLAT	External STDCALL
+a  . . . . . . . . . . . . . . .	DWord	 00000000 _DATA	
+b  . . . . . . . . . . . . . . .	DWord	 00000004 _DATA	
+dtoa . . . . . . . . . . . . . .	L Near	 00000000 FLAT	External STDCALL
+num  . . . . . . . . . . . . . .	Byte	 00000008 _DATA	
+result . . . . . . . . . . . . .	DWord	 0000001F _DATA	
+start  . . . . . . . . . . . . .	L Near	 00000000 _TEXT	Public STDCALL
+string1  . . . . . . . . . . . .	Byte	 00000013 _DATA	
+string2  . . . . . . . . . . . .	Byte	 00000019 _DATA	
+
+	   0 Warnings
+	   0 Errors

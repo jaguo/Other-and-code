@@ -1,0 +1,84 @@
+Microsoft (R) Macro Assembler Version 6.14.8444		    05/22/15 10:01:37
+C:\masm32\Factorial(N!).asm				     Page 1 - 1
+
+
+				;n!=?
+
+				.386
+				.model flat,stdcall
+				.stack 4096
+ 00000000			.data
+ 00000000 0000000A		    n       dword   10
+ 00000004 00000000		    result  dword   ?
+
+ 00000000			.code
+ 00000000			Factorial   proc
+ 00000000  55			    push    ebp
+ 00000001  8B EC		    mov     ebp,esp
+ 00000003  8B 5D 08		    mov     ebx,[ebp+8]
+ 00000006  83 FB 00		    cmp     ebx,0
+ 00000009  74 0E		    je      L1
+ 0000000B  83 EB 01		    sub     ebx,1
+ 0000000E  53			    push    ebx
+ 0000000F  E8 FFFFFFEC		    call    Factorial
+ 00000014  F7 65 08		    mul     dword ptr[ebp+8]
+ 00000017  EB 05		    jmp     L2
+ 00000019			L1:
+ 00000019  B8 00000001		    mov     eax,1
+
+ 0000001E  5D			L2: pop     ebp
+ 0000001F  C2 0004		    ret     4
+
+ 00000022			Factorial   endp
+ 00000022			start:
+ 00000022  FF 35 00000000 R	    push    n
+ 00000028  E8 FFFFFFD3		    call    Factorial
+ 0000002D  A3 00000004 R	    mov     result,eax
+
+ 00000032  C3			ret
+ 00000033			end     start
+Microsoft (R) Macro Assembler Version 6.14.8444		    05/22/15 10:01:37
+C:\masm32\Factorial(N!).asm				     Symbols 2 - 1
+
+
+
+
+Segments and Groups:
+
+                N a m e                 Size     Length   Align   Combine Class
+
+FLAT . . . . . . . . . . . . . .	GROUP
+STACK  . . . . . . . . . . . . .	32 Bit	 00001000 DWord	  Stack	  'STACK'	 
+_DATA  . . . . . . . . . . . . .	32 Bit	 00000008 DWord	  Public  'DATA'	
+_TEXT  . . . . . . . . . . . . .	32 Bit	 00000033 DWord	  Public  'CODE'	
+
+
+Procedures,  parameters and locals:
+
+                N a m e                 Type     Value    Attr
+
+$$$00002 . . . . . . . . . . . .	P Near	 00000022 _TEXT	Length= 00000011 Private STDCALL
+Factorial  . . . . . . . . . . .	P Near	 00000000 _TEXT	Length= 00000022 Public STDCALL
+  L1 . . . . . . . . . . . . . .	L Near	 00000019 _TEXT	
+  L2 . . . . . . . . . . . . . .	L Near	 0000001E _TEXT	
+
+
+Symbols:
+
+                N a m e                 Type     Value    Attr
+
+@CodeSize  . . . . . . . . . . .	Number	 00000000h   
+@DataSize  . . . . . . . . . . .	Number	 00000000h   
+@Interface . . . . . . . . . . .	Number	 00000003h   
+@Model . . . . . . . . . . . . .	Number	 00000007h   
+@code  . . . . . . . . . . . . .	Text   	 _TEXT
+@data  . . . . . . . . . . . . .	Text   	 FLAT
+@fardata?  . . . . . . . . . . .	Text   	 FLAT
+@fardata . . . . . . . . . . . .	Text   	 FLAT
+@stack . . . . . . . . . . . . .	Text   	 FLAT
+n  . . . . . . . . . . . . . . .	DWord	 00000000 _DATA	
+result . . . . . . . . . . . . .	DWord	 00000004 _DATA	
+start  . . . . . . . . . . . . .	L Near	 00000022 _TEXT	Public STDCALL
+
+	   0 Warnings
+	   0 Errors

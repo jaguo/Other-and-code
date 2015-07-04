@@ -1,0 +1,93 @@
+Microsoft (R) Macro Assembler Version 6.14.8444		    05/28/15 21:04:53
+lab_11_2.asm						     Page 1 - 1
+
+
+				;lab_11_2.asm
+				;编写过程dtoa实现有符号十进制数转换为字符串的功能，负数字符串以"-"引导。入口参数为eax=有符号十进制数和ebx=字符串首地址，出口参数为ebx=字符串首地址
+				.386
+				.model stdcall,flat
+				.stack 4096
+				public dtoa
+				public CONST
+ 00000000			.data
+ 00000000 0000000A		        CONST   DWORD   10
+ 00000000			.code
+ 00000000			dtoa    proc    near32
+ 00000000  55			        push    ebp
+ 00000001  8B EC		        mov     ebp,esp
+ 00000003  83 F8 00		        cmp     eax,0
+ 00000006  7F 08		        jg      S                   ;判断eax是正数还是负数
+ 00000008  F7 D8		        neg     eax
+ 0000000A  C6 03 2D		        mov     byte ptr[ebx],'-'
+ 0000000D  83 C3 01		        add     ebx,1
+ 00000010			S:
+ 00000010  B9 00000000		        mov     ecx,0
+ 00000015  83 F8 00		while1: cmp     eax,0
+ 00000018  74 12		        jz      endwhile1
+ 0000001A  99			        cdq
+ 0000001B  F7 35 00000000 R	        div     CONST
+ 00000021  0F AF 0D		        imul    ecx,CONST
+	   00000000 R
+ 00000028  03 CA		        add     ecx,edx
+ 0000002A  EB E9		        jmp     while1
+ 0000002C			endwhile1:
+ 0000002C  8B C1		        mov     eax,ecx
+ 0000002E  83 F8 00		while2: cmp     eax,0
+ 00000031  74 0F		        jz      endwhile2
+ 00000033  99			        cdq
+ 00000034  F7 35 00000000 R	        div     CONST
+ 0000003A  83 C2 30		        add     edx,30h
+ 0000003D  88 13		        mov     [ebx],dl
+ 0000003F  43			        inc     ebx
+ 00000040  EB EC		        jmp     while2
+ 00000042			endwhile2:
+ 00000042  C6 03 00		        mov     byte ptr [ebx],0
+ 00000045  5D			        pop     ebp
+ 00000046  C3			        ret
+ 00000047			dtoa    endp
+				end
+Microsoft (R) Macro Assembler Version 6.14.8444		    05/28/15 21:04:53
+lab_11_2.asm						     Symbols 2 - 1
+
+
+
+
+Segments and Groups:
+
+                N a m e                 Size     Length   Align   Combine Class
+
+FLAT . . . . . . . . . . . . . .	GROUP
+STACK  . . . . . . . . . . . . .	32 Bit	 00001000 DWord	  Stack	  'STACK'	 
+_DATA  . . . . . . . . . . . . .	32 Bit	 00000004 DWord	  Public  'DATA'	
+_TEXT  . . . . . . . . . . . . .	32 Bit	 00000047 DWord	  Public  'CODE'	
+
+
+Procedures,  parameters and locals:
+
+                N a m e                 Type     Value    Attr
+
+dtoa . . . . . . . . . . . . . .	P Near	 00000000 _TEXT	Length= 00000047 Public STDCALL
+  S  . . . . . . . . . . . . . .	L Near	 00000010 _TEXT	
+  while1 . . . . . . . . . . . .	L Near	 00000015 _TEXT	
+  endwhile1  . . . . . . . . . .	L Near	 0000002C _TEXT	
+  while2 . . . . . . . . . . . .	L Near	 0000002E _TEXT	
+  endwhile2  . . . . . . . . . .	L Near	 00000042 _TEXT	
+
+
+Symbols:
+
+                N a m e                 Type     Value    Attr
+
+@CodeSize  . . . . . . . . . . .	Number	 00000000h   
+@DataSize  . . . . . . . . . . .	Number	 00000000h   
+@Interface . . . . . . . . . . .	Number	 00000003h   
+@Model . . . . . . . . . . . . .	Number	 00000007h   
+@code  . . . . . . . . . . . . .	Text   	 _TEXT
+@data  . . . . . . . . . . . . .	Text   	 FLAT
+@fardata?  . . . . . . . . . . .	Text   	 FLAT
+@fardata . . . . . . . . . . . .	Text   	 FLAT
+@stack . . . . . . . . . . . . .	Text   	 FLAT
+CONST  . . . . . . . . . . . . .	DWord	 00000000 _DATA	Public STDCALL
+
+	   0 Warnings
+	   0 Errors

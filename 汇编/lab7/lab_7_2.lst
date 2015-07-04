@@ -1,0 +1,96 @@
+Microsoft (R) Macro Assembler Version 6.14.8444		    05/15/15 10:37:08
+C:\masm32\lab_7_2.asm					     Page 1 - 1
+
+
+				;lab_7_2.asm
+				;编写程序求x，y，z中的最大数和最小数，分别存入内存max和min中,其中32位操作数x, y, z在程序中直接定义
+
+				.386
+				.model flat,stdcall
+				.stack 4096
+ 00000000			.data
+ 00000000 00000001		    x       dword   1
+ 00000004 00000002		    y       dword   2
+ 00000008 00000003		    z       dword   3
+ 0000000C 00000000		    max     dword   ?
+ 00000010 00000000		    min     dword   ?
+
+ 00000000			.code
+ 00000000			start:
+ 00000000  A1 00000000 R	    mov     eax,x
+ 00000005  3B 05 00000004 R	    cmp     eax,y
+ 0000000B  7E 05		    jng      L1
+ 0000000D  A1 00000004 R	    mov     eax,y
+ 00000012			L1:
+ 00000012  3B 05 00000008 R	    cmp     eax,z
+ 00000018  7E 05		    jng     L2
+ 0000001A  A1 00000008 R	    mov     eax,z
+ 0000001F			L2:
+ 0000001F  A3 00000010 R	    mov     min,eax
+ 00000024  A1 00000000 R	    mov     eax,x
+ 00000029  3B 05 00000004 R	    cmp     eax,y
+ 0000002F  7D 05		    jnl     L3
+ 00000031  A1 00000004 R	    mov     eax,y
+ 00000036			    L3:
+ 00000036  3B 05 00000008 R	    cmp     eax,z
+ 0000003C  7D 05		    jnl     L4
+ 0000003E  A1 00000008 R	    mov     eax,z
+ 00000043			    L4:
+ 00000043  A3 0000000C R	    mov     max,eax
+
+ 00000048  C3			ret
+ 00000049			end start
+				    
+Microsoft (R) Macro Assembler Version 6.14.8444		    05/15/15 10:37:08
+C:\masm32\lab_7_2.asm					     Symbols 2 - 1
+
+
+
+
+Segments and Groups:
+
+                N a m e                 Size     Length   Align   Combine Class
+
+FLAT . . . . . . . . . . . . . .	GROUP
+STACK  . . . . . . . . . . . . .	32 Bit	 00001000 DWord	  Stack	  'STACK'	 
+_DATA  . . . . . . . . . . . . .	32 Bit	 00000014 DWord	  Public  'DATA'	
+_TEXT  . . . . . . . . . . . . .	32 Bit	 00000049 DWord	  Public  'CODE'	
+
+
+Procedures,  parameters and locals:
+
+                N a m e                 Type     Value    Attr
+
+$$$00001 . . . . . . . . . . . .	P Near	 00000000 _TEXT	Length= 00000049 Private STDCALL
+  L1 . . . . . . . . . . . . . .	L Near	 00000012 _TEXT	
+  L2 . . . . . . . . . . . . . .	L Near	 0000001F _TEXT	
+  L3 . . . . . . . . . . . . . .	L Near	 00000036 _TEXT	
+  L4 . . . . . . . . . . . . . .	L Near	 00000043 _TEXT	
+
+
+Symbols:
+
+                N a m e                 Type     Value    Attr
+
+@CodeSize  . . . . . . . . . . .	Number	 00000000h   
+@DataSize  . . . . . . . . . . .	Number	 00000000h   
+@Interface . . . . . . . . . . .	Number	 00000003h   
+@Model . . . . . . . . . . . . .	Number	 00000007h   
+@code  . . . . . . . . . . . . .	Text   	 _TEXT
+@data  . . . . . . . . . . . . .	Text   	 FLAT
+@fardata?  . . . . . . . . . . .	Text   	 FLAT
+@fardata . . . . . . . . . . . .	Text   	 FLAT
+@stack . . . . . . . . . . . . .	Text   	 FLAT
+L1 . . . . . . . . . . . . . . .	L Near	 00000012 _TEXT	
+L2 . . . . . . . . . . . . . . .	L Near	 0000001F _TEXT	
+L3 . . . . . . . . . . . . . . .	L Near	 00000036 _TEXT	
+L4 . . . . . . . . . . . . . . .	L Near	 00000043 _TEXT	
+max  . . . . . . . . . . . . . .	DWord	 0000000C _DATA	
+min  . . . . . . . . . . . . . .	DWord	 00000010 _DATA	
+start  . . . . . . . . . . . . .	L Near	 00000000 _TEXT	Public STDCALL
+x  . . . . . . . . . . . . . . .	DWord	 00000000 _DATA	
+y  . . . . . . . . . . . . . . .	DWord	 00000004 _DATA	
+z  . . . . . . . . . . . . . . .	DWord	 00000008 _DATA	
+
+	   0 Warnings
+	   0 Errors

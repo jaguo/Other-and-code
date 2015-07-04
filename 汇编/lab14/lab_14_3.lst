@@ -1,0 +1,88 @@
+Microsoft (R) Macro Assembler Version 6.14.8444		    06/02/15 22:11:28
+D:\masm32\lab_14_3.asm					     Page 1 - 1
+
+
+				;编写子程序将二进制字符串表示的数据存入EAX寄存器
+
+				.386
+				.model	flat,stdcall
+				.stack	4096
+ 00000000			.data
+ 00000000 31 30 31 30 30	    bstring byte    '1010010',0
+	   31 30 00
+ 00000008 00000000		    result  dword   ?
+ 0000000C 00000002		    const   dword   2
+ 00000000			.code
+ 00000000			toDW	   proc
+ 00000000  55			    push	ebp
+ 00000001  8B EC		    mov     ebp,esp
+ 00000003  8B 5D 08		    mov     ebx,[ebp+8]
+ 00000006  33 C0		    xor     eax,eax
+ 00000008  33 C9		    xor     ecx,ecx
+ 0000000A			while1:
+ 0000000A  8A 0B		    mov     cl,[ebx]
+ 0000000C  80 F9 00		    cmp     cl,0
+ 0000000F  74 0E		    je      endwhile1
+ 00000011  F7 25 0000000C R	    mul     const
+ 00000017  83 E1 0F		    and     ecx,0fh
+ 0000001A  03 C1		    add     eax,ecx
+ 0000001C  43			    inc     ebx
+ 0000001D  EB EB		    jmp     while1    
+ 0000001F			endwhile1:  
+ 0000001F  5D			    pop     ebp
+ 00000020  C2 0004		ret     4
+ 00000023			toDW    endp
+
+ 00000023			start:
+ 00000023  68 00000000 R	    push    offset  bstring
+ 00000028  E8 FFFFFFD3		    call    toDW
+ 0000002D  A3 00000008 R	    mov     result,eax
+
+ 00000032  C3			ret
+ 00000033			end start
+Microsoft (R) Macro Assembler Version 6.14.8444		    06/02/15 22:11:28
+D:\masm32\lab_14_3.asm					     Symbols 2 - 1
+
+
+
+
+Segments and Groups:
+
+                N a m e                 Size     Length   Align   Combine Class
+
+FLAT . . . . . . . . . . . . . .	GROUP
+STACK  . . . . . . . . . . . . .	32 Bit	 00001000 DWord	  Stack	  'STACK'	 
+_DATA  . . . . . . . . . . . . .	32 Bit	 00000010 DWord	  Public  'DATA'	
+_TEXT  . . . . . . . . . . . . .	32 Bit	 00000033 DWord	  Public  'CODE'	
+
+
+Procedures,  parameters and locals:
+
+                N a m e                 Type     Value    Attr
+
+$$$00002 . . . . . . . . . . . .	P Near	 00000023 _TEXT	Length= 00000010 Private STDCALL
+toDW . . . . . . . . . . . . . .	P Near	 00000000 _TEXT	Length= 00000023 Public STDCALL
+  while1 . . . . . . . . . . . .	L Near	 0000000A _TEXT	
+  endwhile1  . . . . . . . . . .	L Near	 0000001F _TEXT	
+
+
+Symbols:
+
+                N a m e                 Type     Value    Attr
+
+@CodeSize  . . . . . . . . . . .	Number	 00000000h   
+@DataSize  . . . . . . . . . . .	Number	 00000000h   
+@Interface . . . . . . . . . . .	Number	 00000003h   
+@Model . . . . . . . . . . . . .	Number	 00000007h   
+@code  . . . . . . . . . . . . .	Text   	 _TEXT
+@data  . . . . . . . . . . . . .	Text   	 FLAT
+@fardata?  . . . . . . . . . . .	Text   	 FLAT
+@fardata . . . . . . . . . . . .	Text   	 FLAT
+@stack . . . . . . . . . . . . .	Text   	 FLAT
+bstring  . . . . . . . . . . . .	Byte	 00000000 _DATA	
+const  . . . . . . . . . . . . .	DWord	 0000000C _DATA	
+result . . . . . . . . . . . . .	DWord	 00000008 _DATA	
+start  . . . . . . . . . . . . .	L Near	 00000023 _TEXT	Public STDCALL
+
+	   0 Warnings
+	   0 Errors

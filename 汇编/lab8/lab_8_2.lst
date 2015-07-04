@@ -1,0 +1,114 @@
+Microsoft (R) Macro Assembler Version 6.14.8444		    05/20/15 17:05:15
+D:\masm32\lab_8_2.asm					     Page 1 - 1
+
+
+				;编写程序求成绩数组grades的平均值average，并抽取小于average的成绩存入below_average开始的内存单元,抽取大于average的成绩存入above_average中。成绩数组在程序中直接定义。
+
+				.386
+				.model flat,stdcall
+				.stack 4096
+ 00000000			.data
+ 00000000 0000005A		    grades      dword    90,93,94,95,81,83,76,60
+	   0000005D
+	   0000005E
+	   0000005F
+	   00000051
+	   00000053
+	   0000004C
+	   0000003C
+ 00000020 00000008		    lengrades   dword    ($-grades)/4
+ 00000024  00000008 [		    below_average   dword    8 dup (?)
+	    00000000
+	   ]
+ 00000044  00000008 [		    above_average   dword    8 dup (?)
+	    00000000
+	   ]
+ 00000064 00000000		    average     dword    ?
+
+ 00000000			.code
+ 00000000			start:
+ 00000000  B8 00000000		    mov     eax,0
+ 00000005  BB 00000000 R	    mov     ebx,offset grades
+ 0000000A  8B 0D 00000020 R	    mov     ecx,lengrades
+ 00000010			Loop1:
+ 00000010  03 03		    add     eax,[ebx]
+ 00000012  83 C3 04		    add     ebx,4
+ 00000015  E2 F9		    Loop    Loop1
+ 00000017  99			    cdq
+ 00000018  F7 35 00000020 R	    div     lengrades
+ 0000001E  BB 00000000 R	    mov     ebx,offset  grades
+ 00000023  8B F0		    mov     esi,eax
+ 00000025  B8 00000000		    mov     eax,0
+ 0000002A  BA 00000000		    mov     edx,0
+ 0000002F  BF 00000000		    mov     edi,0
+ 00000034  8B 0D 00000020 R	    mov     ecx,lengrades
+ 0000003A			Loop2:
+ 0000003A  3B 33		    cmp     esi,[ebx]
+ 0000003C  7C 0D		    jl      L1
+ 0000003E  8B 03		    mov     eax,[ebx]
+ 00000040  89 87 00000044 R	    mov     above_average[edi],eax
+ 00000046  83 C7 04		    add     edi,4
+ 00000049  EB 0B		    jmp     L2
+ 0000004B			L1:
+ 0000004B  8B 03		    mov     eax,[ebx]
+ 0000004D  89 82 00000024 R	    mov     below_average[edx],eax
+ 00000053  83 C2 04		    add     edx,4
+
+ 00000056  83 C3 04		L2: add     ebx,4
+ 00000059  E2 DF		    Loop    Loop2
+
+ 0000005B  C3			ret
+ 0000005C			end start
+Microsoft (R) Macro Assembler Version 6.14.8444		    05/20/15 17:05:15
+D:\masm32\lab_8_2.asm					     Symbols 2 - 1
+
+
+
+
+Segments and Groups:
+
+                N a m e                 Size     Length   Align   Combine Class
+
+FLAT . . . . . . . . . . . . . .	GROUP
+STACK  . . . . . . . . . . . . .	32 Bit	 00001000 DWord	  Stack	  'STACK'	 
+_DATA  . . . . . . . . . . . . .	32 Bit	 00000068 DWord	  Public  'DATA'	
+_TEXT  . . . . . . . . . . . . .	32 Bit	 0000005C DWord	  Public  'CODE'	
+
+
+Procedures,  parameters and locals:
+
+                N a m e                 Type     Value    Attr
+
+$$$00001 . . . . . . . . . . . .	P Near	 00000000 _TEXT	Length= 0000005C Private STDCALL
+  Loop1  . . . . . . . . . . . .	L Near	 00000010 _TEXT	
+  Loop2  . . . . . . . . . . . .	L Near	 0000003A _TEXT	
+  L1 . . . . . . . . . . . . . .	L Near	 0000004B _TEXT	
+  L2 . . . . . . . . . . . . . .	L Near	 00000056 _TEXT	
+
+
+Symbols:
+
+                N a m e                 Type     Value    Attr
+
+@CodeSize  . . . . . . . . . . .	Number	 00000000h   
+@DataSize  . . . . . . . . . . .	Number	 00000000h   
+@Interface . . . . . . . . . . .	Number	 00000003h   
+@Model . . . . . . . . . . . . .	Number	 00000007h   
+@code  . . . . . . . . . . . . .	Text   	 _TEXT
+@data  . . . . . . . . . . . . .	Text   	 FLAT
+@fardata?  . . . . . . . . . . .	Text   	 FLAT
+@fardata . . . . . . . . . . . .	Text   	 FLAT
+@stack . . . . . . . . . . . . .	Text   	 FLAT
+L1 . . . . . . . . . . . . . . .	L Near	 0000004B _TEXT	
+L2 . . . . . . . . . . . . . . .	L Near	 00000056 _TEXT	
+Loop1  . . . . . . . . . . . . .	L Near	 00000010 _TEXT	
+Loop2  . . . . . . . . . . . . .	L Near	 0000003A _TEXT	
+above_average  . . . . . . . . .	DWord	 00000044 _DATA	
+average  . . . . . . . . . . . .	DWord	 00000064 _DATA	
+below_average  . . . . . . . . .	DWord	 00000024 _DATA	
+grades . . . . . . . . . . . . .	DWord	 00000000 _DATA	
+lengrades  . . . . . . . . . . .	DWord	 00000020 _DATA	
+start  . . . . . . . . . . . . .	L Near	 00000000 _TEXT	Public STDCALL
+
+	   0 Warnings
+	   0 Errors

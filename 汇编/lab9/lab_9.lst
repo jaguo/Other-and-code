@@ -1,0 +1,57 @@
+Microsoft (R) Macro Assembler Version 6.14.8444		    05/22/15 10:08:42
+C:\masm32\lab_9.asm					     Page 1 - 1
+
+
+				;lab_exercise_9.asm
+				.386
+				.model flat, stdcall
+ 00000000			.code
+ 00000000			start:
+ 00000000  6A 64		      push 100
+ 00000002  E8 00000002			call subproc
+ 00000007  58				pop eax
+ 00000008  C3				ret
+ 00000009 00000009		subproc proc
+ 00000009  C3			ret
+ 0000000A			subproc endp
+				end start
+Microsoft (R) Macro Assembler Version 6.14.8444		    05/22/15 10:08:42
+C:\masm32\lab_9.asm					     Symbols 2 - 1
+
+
+
+
+Segments and Groups:
+
+                N a m e                 Size     Length   Align   Combine Class
+
+FLAT . . . . . . . . . . . . . .	GROUP
+_DATA  . . . . . . . . . . . . .	32 Bit	 00000000 DWord	  Public  'DATA'	
+_TEXT  . . . . . . . . . . . . .	32 Bit	 0000000A DWord	  Public  'CODE'	
+
+
+Procedures,  parameters and locals:
+
+                N a m e                 Type     Value    Attr
+
+$$$00001 . . . . . . . . . . . .	P Near	 00000000 _TEXT	Length= 00000009 Private STDCALL
+subproc  . . . . . . . . . . . .	P Near	 00000009 _TEXT	Length= 00000001 Public STDCALL
+
+
+Symbols:
+
+                N a m e                 Type     Value    Attr
+
+@CodeSize  . . . . . . . . . . .	Number	 00000000h   
+@DataSize  . . . . . . . . . . .	Number	 00000000h   
+@Interface . . . . . . . . . . .	Number	 00000003h   
+@Model . . . . . . . . . . . . .	Number	 00000007h   
+@code  . . . . . . . . . . . . .	Text   	 _TEXT
+@data  . . . . . . . . . . . . .	Text   	 FLAT
+@fardata?  . . . . . . . . . . .	Text   	 FLAT
+@fardata . . . . . . . . . . . .	Text   	 FLAT
+@stack . . . . . . . . . . . . .	Text   	 FLAT
+start  . . . . . . . . . . . . .	L Near	 00000000 _TEXT	Public STDCALL
+
+	   0 Warnings
+	   0 Errors

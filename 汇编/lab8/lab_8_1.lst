@@ -1,0 +1,88 @@
+Microsoft (R) Macro Assembler Version 6.14.8444		    05/15/15 11:18:30
+C:\masm32\lab_8_1.asm					     Page 1 - 1
+
+
+				;lab_8_1.asm
+				;编写程序求X和Y的最大公约数，结果存入result单元。其中16位操作数x, y在程序中直接定义
+
+				.386
+				.model flat,stdcall
+				.stack 4096
+ 00000000			.data
+ 00000000 0051			    x       word    81
+ 00000002 0018			    y       word    24
+ 00000004 0000			    result  word    ?
+
+ 00000000			.code
+ 00000000			start:
+ 00000000  66| A1		    mov     ax,x
+	   00000000 R
+ 00000006  66| 8B 0D		    mov     cx,y
+	   00000002 R
+ 0000000D  66| 3B C1		    cmp     ax,cx
+ 00000010  7D 02		    jnl      L1
+ 00000012  66| 91		    xchg    ax,cx
+ 00000014			L1:
+ 00000014			Loop1:
+ 00000014  66| 99		    cwd
+ 00000016  66| F7 F1		    div     cx
+ 00000019  66| 83 FA 00		    cmp     dx,0
+ 0000001D  74 08		    je      endLoop
+ 0000001F  66| 8B C1		    mov     ax,cx
+ 00000022  66| 8B CA		    mov     cx,dx
+ 00000025  EB ED		    jmp     Loop1
+ 00000027			endLoop:
+ 00000027  66| 89 0D		    mov     result,cx
+	   00000004 R
+
+ 0000002E  C3			ret
+ 0000002F			end start
+Microsoft (R) Macro Assembler Version 6.14.8444		    05/15/15 11:18:30
+C:\masm32\lab_8_1.asm					     Symbols 2 - 1
+
+
+
+
+Segments and Groups:
+
+                N a m e                 Size     Length   Align   Combine Class
+
+FLAT . . . . . . . . . . . . . .	GROUP
+STACK  . . . . . . . . . . . . .	32 Bit	 00001000 DWord	  Stack	  'STACK'	 
+_DATA  . . . . . . . . . . . . .	32 Bit	 00000006 DWord	  Public  'DATA'	
+_TEXT  . . . . . . . . . . . . .	32 Bit	 0000002F DWord	  Public  'CODE'	
+
+
+Procedures,  parameters and locals:
+
+                N a m e                 Type     Value    Attr
+
+$$$00001 . . . . . . . . . . . .	P Near	 00000000 _TEXT	Length= 0000002F Private STDCALL
+  L1 . . . . . . . . . . . . . .	L Near	 00000014 _TEXT	
+  Loop1  . . . . . . . . . . . .	L Near	 00000014 _TEXT	
+  endLoop  . . . . . . . . . . .	L Near	 00000027 _TEXT	
+
+
+Symbols:
+
+                N a m e                 Type     Value    Attr
+
+@CodeSize  . . . . . . . . . . .	Number	 00000000h   
+@DataSize  . . . . . . . . . . .	Number	 00000000h   
+@Interface . . . . . . . . . . .	Number	 00000003h   
+@Model . . . . . . . . . . . . .	Number	 00000007h   
+@code  . . . . . . . . . . . . .	Text   	 _TEXT
+@data  . . . . . . . . . . . . .	Text   	 FLAT
+@fardata?  . . . . . . . . . . .	Text   	 FLAT
+@fardata . . . . . . . . . . . .	Text   	 FLAT
+@stack . . . . . . . . . . . . .	Text   	 FLAT
+L1 . . . . . . . . . . . . . . .	L Near	 00000014 _TEXT	
+Loop1  . . . . . . . . . . . . .	L Near	 00000014 _TEXT	
+endLoop  . . . . . . . . . . . .	L Near	 00000027 _TEXT	
+result . . . . . . . . . . . . .	Word	 00000004 _DATA	
+start  . . . . . . . . . . . . .	L Near	 00000000 _TEXT	Public STDCALL
+x  . . . . . . . . . . . . . . .	Word	 00000000 _DATA	
+y  . . . . . . . . . . . . . . .	Word	 00000002 _DATA	
+
+	   0 Warnings
+	   0 Errors

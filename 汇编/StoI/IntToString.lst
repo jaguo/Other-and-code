@@ -1,0 +1,102 @@
+Microsoft (R) Macro Assembler Version 6.14.8444		    05/12/15 22:25:48
+D:\masm32\IntToString.asm				     Page 1 - 1
+
+
+				;IntToString
+				.386
+				.model flat,stdcall
+				.stack 4096
+ 00000000			.data
+ 00000000  0000000A [		    String  byte    10 dup (?),0
+	    00
+	   ] 00
+ 0000000B 000004D2		    n       dword   1234
+ 0000000F 0000000A		    const   dword    10
+
+ 00000000			.code
+ 00000000			IToS    proc
+ 00000000  55			        push    ebp
+ 00000001  8B EC		        mov     ebp,esp
+ 00000003  8B 45 0C		        mov     eax,[ebp+12]
+ 00000006  8B 5D 08		        mov     ebx,[ebp+8]
+ 00000009  B9 00000000		        mov     ecx,0
+ 0000000E  83 F8 00		while1: cmp     eax,0
+ 00000011  74 12		        jz      endwhile1
+ 00000013  99			        cdq
+ 00000014  F7 35 0000000F R	        div     const
+ 0000001A  0F AF 0D		        imul    ecx,const
+	   0000000F R
+ 00000021  03 CA		        add     ecx,edx
+ 00000023  EB E9		        jmp     while1
+ 00000025			endwhile1:
+ 00000025  8B C1		        mov     eax,ecx
+ 00000027  83 F8 00		while2: cmp     eax,0
+ 0000002A  74 0F		        jz      endwhile2
+ 0000002C  99			        cdq
+ 0000002D  F7 35 0000000F R	        div     const
+ 00000033  83 C2 30		        add     edx,30h
+ 00000036  88 13		        mov     [ebx],dl
+ 00000038  43			        inc     ebx
+ 00000039  EB EC		        jmp     while2
+ 0000003B			endwhile2:
+ 0000003B  C6 03 00		        mov     byte ptr [ebx],0
+ 0000003E  5D			        pop     ebp
+ 0000003F  C2 0008		        ret     8
+
+ 00000042			IToS    endp
+ 00000042			start:
+ 00000042  FF 35 0000000B R	    push    n
+ 00000048  68 00000000 R	    push    offset String
+ 0000004D  E8 FFFFFFAE		    call    IToS
+ 00000052  B8 0000000A		    mov     eax,10
+
+ 00000057  C3			ret
+ 00000058			end     start
+Microsoft (R) Macro Assembler Version 6.14.8444		    05/12/15 22:25:48
+D:\masm32\IntToString.asm				     Symbols 2 - 1
+
+
+
+
+Segments and Groups:
+
+                N a m e                 Size     Length   Align   Combine Class
+
+FLAT . . . . . . . . . . . . . .	GROUP
+STACK  . . . . . . . . . . . . .	32 Bit	 00001000 DWord	  Stack	  'STACK'	 
+_DATA  . . . . . . . . . . . . .	32 Bit	 00000013 DWord	  Public  'DATA'	
+_TEXT  . . . . . . . . . . . . .	32 Bit	 00000058 DWord	  Public  'CODE'	
+
+
+Procedures,  parameters and locals:
+
+                N a m e                 Type     Value    Attr
+
+$$$00002 . . . . . . . . . . . .	P Near	 00000042 _TEXT	Length= 00000016 Private STDCALL
+IToS . . . . . . . . . . . . . .	P Near	 00000000 _TEXT	Length= 00000042 Public STDCALL
+  while1 . . . . . . . . . . . .	L Near	 0000000E _TEXT	
+  endwhile1  . . . . . . . . . .	L Near	 00000025 _TEXT	
+  while2 . . . . . . . . . . . .	L Near	 00000027 _TEXT	
+  endwhile2  . . . . . . . . . .	L Near	 0000003B _TEXT	
+
+
+Symbols:
+
+                N a m e                 Type     Value    Attr
+
+@CodeSize  . . . . . . . . . . .	Number	 00000000h   
+@DataSize  . . . . . . . . . . .	Number	 00000000h   
+@Interface . . . . . . . . . . .	Number	 00000003h   
+@Model . . . . . . . . . . . . .	Number	 00000007h   
+@code  . . . . . . . . . . . . .	Text   	 _TEXT
+@data  . . . . . . . . . . . . .	Text   	 FLAT
+@fardata?  . . . . . . . . . . .	Text   	 FLAT
+@fardata . . . . . . . . . . . .	Text   	 FLAT
+@stack . . . . . . . . . . . . .	Text   	 FLAT
+String . . . . . . . . . . . . .	Byte	 00000000 _DATA	
+const  . . . . . . . . . . . . .	DWord	 0000000F _DATA	
+n  . . . . . . . . . . . . . . .	DWord	 0000000B _DATA	
+start  . . . . . . . . . . . . .	L Near	 00000042 _TEXT	Public STDCALL
+
+	   0 Warnings
+	   0 Errors

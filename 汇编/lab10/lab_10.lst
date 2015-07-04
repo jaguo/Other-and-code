@@ -1,0 +1,158 @@
+Microsoft (R) Macro Assembler Version 6.14.8444		    05/22/15 10:31:44
+C:\masm32\lab_10.asm					     Page 1 - 1
+
+
+				;1.编写过程udtoa实现无符号十进制数转换为十进制字符串的功能。入口参数为eax=无符号十进制数和ebx=字符串首地址，出口参数为ebx=字符串首地址。
+				;2.编写过程dtoa实现有符号十进制数转换为字符串的功能，负数字符串以"-"引导。入口参数为eax=有符号十进制数和ebx=字符串首地址，出口参数为ebx=字符串首地址。
+				;3.编写过程atoud实现字符串转换为无符号十进制数的功能，用堆栈实现参数的传递.
+				;4.编写程序atod实现字符串转换为有符号十进制数的功能，用堆栈实现参数的传递。
+				;5.设计主程序调用过程udtoa，dtoa，atod，atoud。使用的数据在程序中定义。
+
+				.386
+				.model flat,stdcall
+				.stack 4096
+ 00000000			.data
+ 00000000  0000000A [		    nstring     byte    10  dup (?)
+	    00
+	   ]
+ 0000000A 31 32 33 34 35	    string      byte    '123456',0
+	   36 00
+ 00000011 FFFE1DC0		    n           dword   -123456
+ 00000015 00000000		    result      dword   ?
+ 00000019 0000000A		    CONST       dword   10
+ 0000001D 00000000		    flag        dword   ?
+ 00000000			.code
+ 00000000			dtoa    proc
+ 00000000  55			        push    ebp
+ 00000001  8B EC		        mov     ebp,esp
+ 00000003  83 F8 00		        cmp     eax,0
+ 00000006  7F 08		        jg      S                   ;判断eax是正数还是负数
+ 00000008  F7 D8		        neg     eax
+ 0000000A  C6 03 2D		        mov     byte ptr[ebx],'-'
+ 0000000D  83 C3 01		        add     ebx,1
+ 00000010			S:
+ 00000010  B9 00000000		        mov     ecx,0
+ 00000015  83 F8 00		while1: cmp     eax,0
+ 00000018  74 12		        jz      endwhile1
+ 0000001A  99			        cdq
+ 0000001B  F7 35 00000019 R	        div     CONST
+ 00000021  0F AF 0D		        imul    ecx,CONST
+	   00000019 R
+ 00000028  03 CA		        add     ecx,edx
+ 0000002A  EB E9		        jmp     while1
+ 0000002C			endwhile1:
+ 0000002C  8B C1		        mov     eax,ecx
+ 0000002E  83 F8 00		while2: cmp     eax,0
+ 00000031  74 0F		        jz      endwhile2
+ 00000033  99			        cdq
+ 00000034  F7 35 00000019 R	        div     CONST
+ 0000003A  83 C2 30		        add     edx,30h
+ 0000003D  88 13		        mov     [ebx],dl
+ 0000003F  43			        inc     ebx
+ 00000040  EB EC		        jmp     while2
+ 00000042			endwhile2:
+ 00000042  C6 03 00		        mov     byte ptr [ebx],0
+ 00000045  5D			        pop     ebp
+ 00000046  C3			        ret
+ 00000047			dtoa    endp
+
+ 00000047			atod    proc
+ 00000047  55			        push    ebp
+ 00000048  8B EC		        mov     ebp,esp
+ 0000004A  8B 5D 08		        mov     ebx,[ebp+8]
+ 0000004D  80 3B 2D		        cmp     byte ptr[ebx],'-'               ;判断字符串首字母是否为'-'
+ 00000050  75 0B		        jne     S1
+ 00000052  43			        inc     ebx
+ 00000053  C7 05 0000001D R	        mov     flag,1
+	   00000001
+ 0000005D			S1:
+ 0000005D  BA 00000000		        mov     edx,0
+ 00000062  B8 00000000		        mov     eax,0
+ 00000067  8A 13		while1: mov     dl,[ebx]
+ 00000069  80 FA 00		        cmp     dl,0
+ 0000006C  74 10		        je      endwhile1
+ 0000006E  52			        push    edx
+ 0000006F  F7 25 00000019 R	        mul     const
+ 00000075  5A			        pop     edx
+ 00000076  83 EA 30		        sub     edx,30h
+ 00000079  03 C2		        add     eax,edx
+ 0000007B  43			        inc     ebx
+ 0000007C  EB E9		        jmp     while1
+ 0000007E			endwhile1:
+ 0000007E  83 3D 0000001D R	        cmp     flag,1
+	   01
+ 00000085  75 02		        jne     S2
+ 00000087  F7 D8		        neg     eax
+ 00000089			S2:
+ 00000089  5D			        pop     ebp
+ 0000008A  C2 0004		        ret     4
+ 0000008D			atod    endp
+
+ 0000008D			start:
+ 0000008D  A1 00000011 R	    mov     eax,n
+ 00000092  BB 00000000 R	    mov     ebx,offset  nstring
+ 00000097  E8 FFFFFF64		    call    dtoa
+ 0000009C  68 0000000A R	    push    offset  string
+ 000000A1  E8 FFFFFFA1		    call    atod
+ 000000A6  A3 00000015 R	    mov     result,eax
+
+ 000000AB  C3			ret
+ 000000AC			end start
+				    
+Microsoft (R) Macro Assembler Version 6.14.8444		    05/22/15 10:31:44
+C:\masm32\lab_10.asm					     Symbols 2 - 1
+
+
+
+
+Segments and Groups:
+
+                N a m e                 Size     Length   Align   Combine Class
+
+FLAT . . . . . . . . . . . . . .	GROUP
+STACK  . . . . . . . . . . . . .	32 Bit	 00001000 DWord	  Stack	  'STACK'	 
+_DATA  . . . . . . . . . . . . .	32 Bit	 00000021 DWord	  Public  'DATA'	
+_TEXT  . . . . . . . . . . . . .	32 Bit	 000000AC DWord	  Public  'CODE'	
+
+
+Procedures,  parameters and locals:
+
+                N a m e                 Type     Value    Attr
+
+$$$00003 . . . . . . . . . . . .	P Near	 0000008D _TEXT	Length= 0000001F Private STDCALL
+atod . . . . . . . . . . . . . .	P Near	 00000047 _TEXT	Length= 00000046 Public STDCALL
+  S1 . . . . . . . . . . . . . .	L Near	 0000005D _TEXT	
+  while1 . . . . . . . . . . . .	L Near	 00000067 _TEXT	
+  endwhile1  . . . . . . . . . .	L Near	 0000007E _TEXT	
+  S2 . . . . . . . . . . . . . .	L Near	 00000089 _TEXT	
+dtoa . . . . . . . . . . . . . .	P Near	 00000000 _TEXT	Length= 00000047 Public STDCALL
+  S  . . . . . . . . . . . . . .	L Near	 00000010 _TEXT	
+  while1 . . . . . . . . . . . .	L Near	 00000015 _TEXT	
+  endwhile1  . . . . . . . . . .	L Near	 0000002C _TEXT	
+  while2 . . . . . . . . . . . .	L Near	 0000002E _TEXT	
+  endwhile2  . . . . . . . . . .	L Near	 00000042 _TEXT	
+
+
+Symbols:
+
+                N a m e                 Type     Value    Attr
+
+@CodeSize  . . . . . . . . . . .	Number	 00000000h   
+@DataSize  . . . . . . . . . . .	Number	 00000000h   
+@Interface . . . . . . . . . . .	Number	 00000003h   
+@Model . . . . . . . . . . . . .	Number	 00000007h   
+@code  . . . . . . . . . . . . .	Text   	 _TEXT
+@data  . . . . . . . . . . . . .	Text   	 FLAT
+@fardata?  . . . . . . . . . . .	Text   	 FLAT
+@fardata . . . . . . . . . . . .	Text   	 FLAT
+@stack . . . . . . . . . . . . .	Text   	 FLAT
+CONST  . . . . . . . . . . . . .	DWord	 00000019 _DATA	
+flag . . . . . . . . . . . . . .	DWord	 0000001D _DATA	
+nstring  . . . . . . . . . . . .	Byte	 00000000 _DATA	
+n  . . . . . . . . . . . . . . .	DWord	 00000011 _DATA	
+result . . . . . . . . . . . . .	DWord	 00000015 _DATA	
+start  . . . . . . . . . . . . .	L Near	 0000008D _TEXT	Public STDCALL
+string . . . . . . . . . . . . .	Byte	 0000000A _DATA	
+
+	   0 Warnings
+	   0 Errors

@@ -1,0 +1,95 @@
+Microsoft (R) Macro Assembler Version 6.14.8444		    05/31/15 20:02:33
+D:\masm32\lab_13_2.asm					     Page 1 - 1
+
+
+				;编写递归过程GCD，求两个数的最大公约数。用堆栈传递32位整数，返回值由eax返回。在过程中移除堆栈中的参数。编写主程序，由用户输入两个数x和y，调用GCD过程求x和y的最大公约数，在屏幕显示结果。
+
+				.386
+				.model flat,stdcall
+				.stack 4096
+ 00000000			.data
+ 00000000 0000000F		    num1    dword   15
+ 00000004 0000001B		    num2    dword   27
+ 00000008 00000000		    result  dword   ?
+
+ 00000000			.code
+ 00000000			gcd     proc
+ 00000000  55			    push    ebp
+ 00000001  8B EC		    mov     ebp,esp
+ 00000003  8B 45 0C		    mov     eax,[ebp+12]
+ 00000006  3B 45 08		    cmp     eax,[ebp+8]
+ 00000009  77 03		    ja      L1
+ 0000000B  87 45 08		    xchg    eax,[ebp+8]
+ 0000000E			L1:
+ 0000000E  99			    cdq
+ 0000000F  F7 75 08		    div     dword ptr [ebp+8]
+ 00000012  83 FA 00		    cmp     edx,0
+ 00000015  75 05		    jne     L2
+ 00000017  8B 45 08		    mov     eax,[ebp+8]
+ 0000001A  EB 0F		    jmp     L3
+ 0000001C			L2:
+ 0000001C  8B 45 08		    mov     eax,[ebp+8]
+ 0000001F  89 55 08		    mov     [ebp+8],edx
+ 00000022  50			    push    eax
+ 00000023  FF 75 08		    push    [ebp+8]
+ 00000026  E8 FFFFFFD5		    call    gcd    
+ 0000002B			L3:
+ 0000002B  5D			    pop     ebp
+ 0000002C  C2 0008		ret     8
+ 0000002F			gcd     endp
+
+ 0000002F			start:
+ 0000002F  FF 35 00000000 R	    push    num1
+ 00000035  FF 35 00000004 R	    push    num2
+ 0000003B  E8 FFFFFFC0		    call    gcd
+ 00000040  A3 00000008 R	    mov     result,eax
+
+ 00000045  C3			ret
+ 00000046			end start
+Microsoft (R) Macro Assembler Version 6.14.8444		    05/31/15 20:02:33
+D:\masm32\lab_13_2.asm					     Symbols 2 - 1
+
+
+
+
+Segments and Groups:
+
+                N a m e                 Size     Length   Align   Combine Class
+
+FLAT . . . . . . . . . . . . . .	GROUP
+STACK  . . . . . . . . . . . . .	32 Bit	 00001000 DWord	  Stack	  'STACK'	 
+_DATA  . . . . . . . . . . . . .	32 Bit	 0000000C DWord	  Public  'DATA'	
+_TEXT  . . . . . . . . . . . . .	32 Bit	 00000046 DWord	  Public  'CODE'	
+
+
+Procedures,  parameters and locals:
+
+                N a m e                 Type     Value    Attr
+
+$$$00002 . . . . . . . . . . . .	P Near	 0000002F _TEXT	Length= 00000017 Private STDCALL
+gcd  . . . . . . . . . . . . . .	P Near	 00000000 _TEXT	Length= 0000002F Public STDCALL
+  L1 . . . . . . . . . . . . . .	L Near	 0000000E _TEXT	
+  L2 . . . . . . . . . . . . . .	L Near	 0000001C _TEXT	
+  L3 . . . . . . . . . . . . . .	L Near	 0000002B _TEXT	
+
+
+Symbols:
+
+                N a m e                 Type     Value    Attr
+
+@CodeSize  . . . . . . . . . . .	Number	 00000000h   
+@DataSize  . . . . . . . . . . .	Number	 00000000h   
+@Interface . . . . . . . . . . .	Number	 00000003h   
+@Model . . . . . . . . . . . . .	Number	 00000007h   
+@code  . . . . . . . . . . . . .	Text   	 _TEXT
+@data  . . . . . . . . . . . . .	Text   	 FLAT
+@fardata?  . . . . . . . . . . .	Text   	 FLAT
+@fardata . . . . . . . . . . . .	Text   	 FLAT
+@stack . . . . . . . . . . . . .	Text   	 FLAT
+num1 . . . . . . . . . . . . . .	DWord	 00000000 _DATA	
+num2 . . . . . . . . . . . . . .	DWord	 00000004 _DATA	
+result . . . . . . . . . . . . .	DWord	 00000008 _DATA	
+start  . . . . . . . . . . . . .	L Near	 0000002F _TEXT	Public STDCALL
+
+	   0 Warnings
+	   0 Errors

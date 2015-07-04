@@ -1,0 +1,77 @@
+Microsoft (R) Macro Assembler Version 6.14.8444		    05/08/15 10:26:20
+C:\masm32\lab_exercise_6_1.asm				     Page 1 - 1
+
+
+				;lab_exercise_6_1.asm
+				;x-2y+4z
+				.386
+				.model flat,stdcall
+				.stack 4096
+ 00000000			.data
+ 00000000 000A			    x   word   10
+ 00000002 0003			    y   word   3
+ 00000004 000B			    z   word   11
+ 00000006 0000			    result  word   ?
+
+ 00000000			.code
+ 00000000			start:
+ 00000000  66| A1		    mov ax,x
+	   00000000 R
+ 00000006  66| 8B 1D		    mov bx,y
+	   00000002 R
+ 0000000D  66| 6B DB 02		    imul bx,2
+ 00000011  66| 2B C3		    sub ax,bx
+ 00000014  66| 8B 1D		    mov bx,z
+	   00000004 R
+ 0000001B  66| 6B DB 04		    imul bx,4
+ 0000001F  66| 03 C3		    add ax,bx
+ 00000022  66| A3		    mov result,ax
+	   00000006 R
+
+ 00000028  C3			ret
+ 00000029			end start
+				    
+Microsoft (R) Macro Assembler Version 6.14.8444		    05/08/15 10:26:20
+C:\masm32\lab_exercise_6_1.asm				     Symbols 2 - 1
+
+
+
+
+Segments and Groups:
+
+                N a m e                 Size     Length   Align   Combine Class
+
+FLAT . . . . . . . . . . . . . .	GROUP
+STACK  . . . . . . . . . . . . .	32 Bit	 00001000 DWord	  Stack	  'STACK'	 
+_DATA  . . . . . . . . . . . . .	32 Bit	 00000008 DWord	  Public  'DATA'	
+_TEXT  . . . . . . . . . . . . .	32 Bit	 00000029 DWord	  Public  'CODE'	
+
+
+Procedures,  parameters and locals:
+
+                N a m e                 Type     Value    Attr
+
+$$$00001 . . . . . . . . . . . .	P Near	 00000000 _TEXT	Length= 00000029 Private STDCALL
+
+
+Symbols:
+
+                N a m e                 Type     Value    Attr
+
+@CodeSize  . . . . . . . . . . .	Number	 00000000h   
+@DataSize  . . . . . . . . . . .	Number	 00000000h   
+@Interface . . . . . . . . . . .	Number	 00000003h   
+@Model . . . . . . . . . . . . .	Number	 00000007h   
+@code  . . . . . . . . . . . . .	Text   	 _TEXT
+@data  . . . . . . . . . . . . .	Text   	 FLAT
+@fardata?  . . . . . . . . . . .	Text   	 FLAT
+@fardata . . . . . . . . . . . .	Text   	 FLAT
+@stack . . . . . . . . . . . . .	Text   	 FLAT
+result . . . . . . . . . . . . .	Word	 00000006 _DATA	
+start  . . . . . . . . . . . . .	L Near	 00000000 _TEXT	Public STDCALL
+x  . . . . . . . . . . . . . . .	Word	 00000000 _DATA	
+y  . . . . . . . . . . . . . . .	Word	 00000002 _DATA	
+z  . . . . . . . . . . . . . . .	Word	 00000004 _DATA	
+
+	   0 Warnings
+	   0 Errors

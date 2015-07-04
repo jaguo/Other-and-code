@@ -1,0 +1,76 @@
+Microsoft (R) Macro Assembler Version 6.14.8444		    04/10/15 11:13:58
+C:\masm32\lab_exercise_3_2.asm				     Page 1 - 1
+
+
+				.386
+				.model flat,stdcall
+				.stack 4096
+ 00000000			.data
+ 00000000 = 00000000		    v_byte      equ     this byte    ;
+ 00000000 3332 3735		    v_word      word    3332h,3735h  ;
+ 00000004 01			    v_byte_byte byte    type    v_byte  ;
+ 00000005 02			    v_word_type byte    type    v_word  ;
+
+ 00000006  00000005 [		    array       word    5 dup (20h)
+	    0020
+	   ]
+ 00000010 0A			    array_length1   byte    $-array
+ 00000011 02			    array_type  byte    type    array
+ 00000012 0A			    array_size  byte    sizeof  array
+ 00000013 00000006 R		    n_point     dword   offset  array
+
+ 00000000			.code
+ 00000000			start:
+ 00000000			    ;
+
+ 00000000  C3			ret
+ 00000001			end start
+Microsoft (R) Macro Assembler Version 6.14.8444		    04/10/15 11:13:58
+C:\masm32\lab_exercise_3_2.asm				     Symbols 2 - 1
+
+
+
+
+Segments and Groups:
+
+                N a m e                 Size     Length   Align   Combine Class
+
+FLAT . . . . . . . . . . . . . .	GROUP
+STACK  . . . . . . . . . . . . .	32 Bit	 00001000 DWord	  Stack	  'STACK'	 
+_DATA  . . . . . . . . . . . . .	32 Bit	 00000017 DWord	  Public  'DATA'	
+_TEXT  . . . . . . . . . . . . .	32 Bit	 00000001 DWord	  Public  'CODE'	
+
+
+Procedures,  parameters and locals:
+
+                N a m e                 Type     Value    Attr
+
+$$$00001 . . . . . . . . . . . .	P Near	 00000000 _TEXT	Length= 00000001 Private STDCALL
+
+
+Symbols:
+
+                N a m e                 Type     Value    Attr
+
+@CodeSize  . . . . . . . . . . .	Number	 00000000h   
+@DataSize  . . . . . . . . . . .	Number	 00000000h   
+@Interface . . . . . . . . . . .	Number	 00000003h   
+@Model . . . . . . . . . . . . .	Number	 00000007h   
+@code  . . . . . . . . . . . . .	Text   	 _TEXT
+@data  . . . . . . . . . . . . .	Text   	 FLAT
+@fardata?  . . . . . . . . . . .	Text   	 FLAT
+@fardata . . . . . . . . . . . .	Text   	 FLAT
+@stack . . . . . . . . . . . . .	Text   	 FLAT
+array_length1  . . . . . . . . .	Byte	 00000010 _DATA	
+array_size . . . . . . . . . . .	Byte	 00000012 _DATA	
+array_type . . . . . . . . . . .	Byte	 00000011 _DATA	
+array  . . . . . . . . . . . . .	Word	 00000006 _DATA	
+n_point  . . . . . . . . . . . .	DWord	 00000013 _DATA	
+start  . . . . . . . . . . . . .	L Near	 00000000 _TEXT	Public STDCALL
+v_byte_byte  . . . . . . . . . .	Byte	 00000004 _DATA	
+v_byte . . . . . . . . . . . . .	Number	 00000000h   
+v_word_type  . . . . . . . . . .	Byte	 00000005 _DATA	
+v_word . . . . . . . . . . . . .	Word	 00000000 _DATA	
+
+	   0 Warnings
+	   0 Errors

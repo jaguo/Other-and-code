@@ -1,0 +1,79 @@
+Microsoft (R) Macro Assembler Version 6.14.8444		    04/10/15 10:05:04
+C:\masm32\lab_exercise_3_1.asm				     Page 1 - 1
+
+
+				.386
+				.model flat,stdcall
+				.stack 4096
+ 00000000			.data
+ 00000000 10			    bvar    byte    16
+ 00000001 000C			    wbar    word    4*3
+ 00000003 FFFFFFFF		    dvar    dword   4294967295    ;=232-1=FFFFFFFFH
+ 00000007			    qvar    qword   ?
+	   0000000000000000
+ 0000000F  01 02 03 04 05	            byte    1,2,3,4,5
+ 00000014			    tvar    tbyte   2345
+	   00000000000000000929
+ 0000001E 61 62 63		    abc     byte    'a','b','c'
+ 00000021 48 65 6C 6C 6F	    msg     byte    'Hello',13,10,'$'
+	   0D 0A 24
+ 00000029  0000000C [		    bbuf    byte    12 dup ('month')
+	    68746E6F6D
+	   ]
+ 00000065  00000019 [		    dbuf    dword   25 dup (?)
+	    00000000
+	   ]
+ 00000000			.code
+ 00000000			start:
+ 00000000			    ;none
+ 00000000  C3			ret
+ 00000001			end start
+Microsoft (R) Macro Assembler Version 6.14.8444		    04/10/15 10:05:04
+C:\masm32\lab_exercise_3_1.asm				     Symbols 2 - 1
+
+
+
+
+Segments and Groups:
+
+                N a m e                 Size     Length   Align   Combine Class
+
+FLAT . . . . . . . . . . . . . .	GROUP
+STACK  . . . . . . . . . . . . .	32 Bit	 00001000 DWord	  Stack	  'STACK'	 
+_DATA  . . . . . . . . . . . . .	32 Bit	 000000C9 DWord	  Public  'DATA'	
+_TEXT  . . . . . . . . . . . . .	32 Bit	 00000001 DWord	  Public  'CODE'	
+
+
+Procedures,  parameters and locals:
+
+                N a m e                 Type     Value    Attr
+
+$$$00001 . . . . . . . . . . . .	P Near	 00000000 _TEXT	Length= 00000001 Private STDCALL
+
+
+Symbols:
+
+                N a m e                 Type     Value    Attr
+
+@CodeSize  . . . . . . . . . . .	Number	 00000000h   
+@DataSize  . . . . . . . . . . .	Number	 00000000h   
+@Interface . . . . . . . . . . .	Number	 00000003h   
+@Model . . . . . . . . . . . . .	Number	 00000007h   
+@code  . . . . . . . . . . . . .	Text   	 _TEXT
+@data  . . . . . . . . . . . . .	Text   	 FLAT
+@fardata?  . . . . . . . . . . .	Text   	 FLAT
+@fardata . . . . . . . . . . . .	Text   	 FLAT
+@stack . . . . . . . . . . . . .	Text   	 FLAT
+abc  . . . . . . . . . . . . . .	Byte	 0000001E _DATA	
+bbuf . . . . . . . . . . . . . .	Byte	 00000029 _DATA	
+bvar . . . . . . . . . . . . . .	Byte	 00000000 _DATA	
+dbuf . . . . . . . . . . . . . .	DWord	 00000065 _DATA	
+dvar . . . . . . . . . . . . . .	DWord	 00000003 _DATA	
+msg  . . . . . . . . . . . . . .	Byte	 00000021 _DATA	
+qvar . . . . . . . . . . . . . .	QWord	 00000007 _DATA	
+start  . . . . . . . . . . . . .	L Near	 00000000 _TEXT	Public STDCALL
+tvar . . . . . . . . . . . . . .	TWord	 00000014 _DATA	
+wbar . . . . . . . . . . . . . .	Word	 00000001 _DATA	
+
+	   0 Warnings
+	   0 Errors

@@ -1,0 +1,101 @@
+Microsoft (R) Macro Assembler Version 6.14.8444		    05/15/15 10:58:39
+C:\masm32\lab_7_3.asm					     Page 1 - 1
+
+
+				;lab_7_3.asm
+				;编写程序判断某一年year是否为闰年。如果是al设置为1， 如果不是al设置为0。Year在程序中直接设定
+
+				.386
+				.model flat,stdcall
+				.stack 4096
+ 00000000			.data
+ 00000000 07D0			    year    word    2000
+ 00000002 0064			    const1  word    100
+ 00000004 0004			    const2  word    4
+ 00000006 0190			    const3  word    400
+
+ 00000000			.code
+ 00000000			start:
+ 00000000  66| A1		    mov     ax,year
+	   00000000 R
+ 00000006  66| 99		    cwd
+ 00000008  66| F7 35		    div     const1
+	   00000002 R
+ 0000000F  66| 83 FA 00		    cmp     dx,0
+ 00000013  74 19		    je      L1
+ 00000015  66| A1		    mov     ax,year
+	   00000000 R
+ 0000001B  66| 99		    cwd
+ 0000001D  66| F7 35		    div     const2
+	   00000004 R
+ 00000024  66| 83 FA 00		    cmp     dx,0
+ 00000028  75 1D		    jne     L2
+ 0000002A  B0 01		    mov     al,1
+ 0000002C  EB 1B		    jmp     L3
+
+ 0000002E			L1:
+ 0000002E  66| A1		    mov     ax,year
+	   00000000 R
+ 00000034  66| 99		    cwd
+ 00000036  66| F7 35		    div     const3
+	   00000006 R
+ 0000003D  66| 83 FA 00		    cmp     dx,0
+ 00000041  75 04		    jne     L2
+ 00000043  B0 01		    mov     al,1
+ 00000045  EB 02		    jmp     L3
+ 00000047			L2:
+ 00000047  B0 00		    mov     al,0
+
+ 00000049			L3:
+ 00000049  C3			ret
+ 0000004A			end start
+Microsoft (R) Macro Assembler Version 6.14.8444		    05/15/15 10:58:39
+C:\masm32\lab_7_3.asm					     Symbols 2 - 1
+
+
+
+
+Segments and Groups:
+
+                N a m e                 Size     Length   Align   Combine Class
+
+FLAT . . . . . . . . . . . . . .	GROUP
+STACK  . . . . . . . . . . . . .	32 Bit	 00001000 DWord	  Stack	  'STACK'	 
+_DATA  . . . . . . . . . . . . .	32 Bit	 00000008 DWord	  Public  'DATA'	
+_TEXT  . . . . . . . . . . . . .	32 Bit	 0000004A DWord	  Public  'CODE'	
+
+
+Procedures,  parameters and locals:
+
+                N a m e                 Type     Value    Attr
+
+$$$00001 . . . . . . . . . . . .	P Near	 00000000 _TEXT	Length= 0000004A Private STDCALL
+  L1 . . . . . . . . . . . . . .	L Near	 0000002E _TEXT	
+  L2 . . . . . . . . . . . . . .	L Near	 00000047 _TEXT	
+  L3 . . . . . . . . . . . . . .	L Near	 00000049 _TEXT	
+
+
+Symbols:
+
+                N a m e                 Type     Value    Attr
+
+@CodeSize  . . . . . . . . . . .	Number	 00000000h   
+@DataSize  . . . . . . . . . . .	Number	 00000000h   
+@Interface . . . . . . . . . . .	Number	 00000003h   
+@Model . . . . . . . . . . . . .	Number	 00000007h   
+@code  . . . . . . . . . . . . .	Text   	 _TEXT
+@data  . . . . . . . . . . . . .	Text   	 FLAT
+@fardata?  . . . . . . . . . . .	Text   	 FLAT
+@fardata . . . . . . . . . . . .	Text   	 FLAT
+@stack . . . . . . . . . . . . .	Text   	 FLAT
+L1 . . . . . . . . . . . . . . .	L Near	 0000002E _TEXT	
+L2 . . . . . . . . . . . . . . .	L Near	 00000047 _TEXT	
+L3 . . . . . . . . . . . . . . .	L Near	 00000049 _TEXT	
+const1 . . . . . . . . . . . . .	Word	 00000002 _DATA	
+const2 . . . . . . . . . . . . .	Word	 00000004 _DATA	
+const3 . . . . . . . . . . . . .	Word	 00000006 _DATA	
+start  . . . . . . . . . . . . .	L Near	 00000000 _TEXT	Public STDCALL
+year . . . . . . . . . . . . . .	Word	 00000000 _DATA	
+
+	   0 Warnings
+	   0 Errors

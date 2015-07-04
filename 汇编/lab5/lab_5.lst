@@ -1,0 +1,70 @@
+Microsoft (R) Macro Assembler Version 6.14.8444		    05/11/15 20:28:40
+D:\masm32\lab_5.asm					     Page 1 - 1
+
+
+				.386
+				.model flat,stdcall
+				.stack 4096
+ 00000000			.data
+ 00000000 09			    n   byte 9
+ 00000001 30 31 32 33 34	    table   byte '0123456789'
+	   35 36 37 38 39
+ 0000000B FFFFFFFF		    m   dword 0FFFFFFFFh
+
+ 00000000			.code
+ 00000000			start:
+ 00000000  B8 00000000		    mov eax,0
+ 00000005  A0 00000000 R	    mov al,n
+ 0000000A  BB 00000001 R	    mov ebx,offset table
+ 0000000F  8A 04 18		    mov al,[ebx+eax]
+ 00000012  B8 00000000		    mov eax,0
+ 00000017  B0 31		    mov al,31h
+ 00000019  2C 30		    sub al,30h
+ 0000001B  D7			    xlat
+ 0000001C  C1 E0 08		    SHL eax,8
+
+ 0000001F  C3			ret
+ 00000020			end start
+Microsoft (R) Macro Assembler Version 6.14.8444		    05/11/15 20:28:40
+D:\masm32\lab_5.asm					     Symbols 2 - 1
+
+
+
+
+Segments and Groups:
+
+                N a m e                 Size     Length   Align   Combine Class
+
+FLAT . . . . . . . . . . . . . .	GROUP
+STACK  . . . . . . . . . . . . .	32 Bit	 00001000 DWord	  Stack	  'STACK'	 
+_DATA  . . . . . . . . . . . . .	32 Bit	 0000000F DWord	  Public  'DATA'	
+_TEXT  . . . . . . . . . . . . .	32 Bit	 00000020 DWord	  Public  'CODE'	
+
+
+Procedures,  parameters and locals:
+
+                N a m e                 Type     Value    Attr
+
+$$$00001 . . . . . . . . . . . .	P Near	 00000000 _TEXT	Length= 00000020 Private STDCALL
+
+
+Symbols:
+
+                N a m e                 Type     Value    Attr
+
+@CodeSize  . . . . . . . . . . .	Number	 00000000h   
+@DataSize  . . . . . . . . . . .	Number	 00000000h   
+@Interface . . . . . . . . . . .	Number	 00000003h   
+@Model . . . . . . . . . . . . .	Number	 00000007h   
+@code  . . . . . . . . . . . . .	Text   	 _TEXT
+@data  . . . . . . . . . . . . .	Text   	 FLAT
+@fardata?  . . . . . . . . . . .	Text   	 FLAT
+@fardata . . . . . . . . . . . .	Text   	 FLAT
+@stack . . . . . . . . . . . . .	Text   	 FLAT
+m  . . . . . . . . . . . . . . .	DWord	 0000000B _DATA	
+n  . . . . . . . . . . . . . . .	Byte	 00000000 _DATA	
+start  . . . . . . . . . . . . .	L Near	 00000000 _TEXT	Public STDCALL
+table  . . . . . . . . . . . . .	Byte	 00000001 _DATA	
+
+	   0 Warnings
+	   0 Errors
